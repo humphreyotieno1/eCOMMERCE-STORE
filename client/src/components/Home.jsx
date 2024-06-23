@@ -36,7 +36,7 @@ const HomePage = () => {
         className="flex flex-col relative h-full w-full"
       >
         <img
-          src="/geocel.jpg"
+          src="/background.jpg"
           alt="Geocel Enterprises Hardware"
           className="w-full h-full object-cover"
         />

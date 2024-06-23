@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar'
+import HomePage from './components/Home';
+import NavBar from './components/NavBar';
+import Products from './components/Product';
+import Cart from './components/Cart';
+import { CartProvider } from './components/CartContext';
 
 export default function App() {
-  return (
-    <Router>
-      <NavBar />
-      <Routes>
+  const [searchQuery, setSearchQuery] = useState('');
 
-      </Routes>
-    </Router>
-  )
+  return (
+    <CartProvider>
+      <Router>
+        <NavBar setSearchQuery={setSearchQuery} />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<Products searchQuery={searchQuery} />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </Router>
+    </CartProvider>
+  );
 }
