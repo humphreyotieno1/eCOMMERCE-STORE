@@ -4,6 +4,7 @@ import Cart from './Cart.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import Pagination from '../components/Pagination.jsx';
 
+// sample products
 const initialProducts = [
   {
     imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718628397/GEOCEL/Bamburi_Fundi.jpg',
