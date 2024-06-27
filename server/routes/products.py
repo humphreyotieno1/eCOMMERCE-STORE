@@ -1,7 +1,7 @@
 from flask import jsonify, make_response, request
 from flask_restful import Resource
 from dbconfig import db
-from models import Product
+from models.product import Product
 
 class Products(Resource):
     def get(self):
