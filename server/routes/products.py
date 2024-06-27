@@ -6,7 +6,7 @@ from models import Product
 class Products(Resource):
     def get(self):
         try:
-            products = [product.to_dict(rules=['-category', '-admin', '-orders', '-cart_items']) for product in Product.query.all()]
+            products = [product.to_dict() for product in Product.query.all()]
             return make_response(jsonify(products), 200)
         except Exception as e:
             return {"message": "Error retrieving products", "error": str(e)}, 500
@@ -20,12 +20,14 @@ class Products(Resource):
             new_product = Product(
                 name=product_data['name'],
                 description=product_data['description'],
-                image_url=product_data['image_url'],
+                imageUrl=product_data['imageUrl'],
+                imageAlt=product_data['imageAlt'],
+                category=product_data['category'],
+                quantity=product_data['quantity'],
                 price=product_data['price'],
-                is_in_stock=product_data['is_in_stock'],
+                formattedPrice=product_data['formattedPrice'],
                 rating=product_data['rating'],
-                category_id=product_data.get('category_id', 1),
-                admin_id=product_data.get('admin_id', 1)
+                numReviews=product_data['numReviews']
             )
             db.session.add(new_product)
             db.session.commit()
@@ -41,7 +43,7 @@ class ProductById(Resource):
         product = Product.query.filter_by(id=id).first()
         if not product:
             return {"message": "Product not found"}, 404
-        return make_response(jsonify(product.to_dict(rules=['-category', '-admin', '-orders', '-cart_items'])), 200)
+        return make_response(jsonify(product.to_dict()), 200)
 
     def patch(self, id):
         data = request.get_json()
@@ -55,8 +57,20 @@ class ProductById(Resource):
             product.price = data['price']
         if 'description' in data:
             product.description = data['description']
-        if 'image_url' in data:
-            product.image_url = data['image_url']
+        if 'imageUrl' in data:
+            product.image_url = data['imageUrl']
+        if 'imageAlt' in data:
+            product.image_alt = data['imageAlt']
+        if 'category' in data:
+            product.category = data['category']
+        if 'quantity' in data:
+            product.quantity = data['quantity']
+        if 'formattedPrice' in data:
+            product.formatted_price = data['formattedPrice']
+        if 'rating' in data:
+            product.rating = data['rating']
+        if 'numReviews' in data:
+            product.num_reviews = data['numReviews']
 
         try:
             db.session.add(product)
