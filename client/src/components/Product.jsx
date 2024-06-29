@@ -4,192 +4,6 @@ import Cart from './Cart.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import Pagination from '../components/Pagination.jsx';
 
-// sample products
-const initialProducts = [
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718628397/GEOCEL/Bamburi_Fundi.jpg',
-    imageAlt: 'Bamburi Fundi Cement',
-    category: 'Construction',
-    quantity: 10,
-    price: 760.0,
-    description:
-      'Bamburi Fundi Cement is a hydraulic cement designed for use in mortars for masonry construction. Plastering, rendering, stucco, brick laying, screeding and others.',
-    name: 'Bamburi Fundi Cement',
-    formattedPrice: 'kshs 760.00',
-    rating: 4,
-    numReviews: 10,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629096/GEOCEL/Steel_Nail_3%22.jpg',
-    imageAlt: 'Nails 3 inches',
-    category: 'Fencing',
-    quantity: 50,
-    price: 250.0,
-    description: 'High-quality 3-inch nails for various construction needs.',
-    name: 'Per Kg Nails 3 inches',
-    formattedPrice: 'kshs 250.00',
-    rating: 4.5,
-    numReviews: 30,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718627953/GEOCEL/Juakali_wheelbarrow.jpg',
-    imageAlt: 'Wheelbarrow',
-    category: 'Construction',
-    quantity: 5,
-    price: 2500.0,
-    description: 'Sturdy wheelbarrow for transporting materials around the construction site.',
-    name: 'Wheelbarrow',
-    formattedPrice: 'kshs 2500.00',
-    rating: 4.8,
-    numReviews: 15,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629200/GEOCEL/Shovel.jpg',
-    imageAlt: 'Shovel',
-    category: 'Construction',
-    quantity: 20,
-    price: 1200.0,
-    description: 'Durable shovel for digging and moving bulk materials.',
-    name: 'Shovel',
-    formattedPrice: 'kshs 1200.00',
-    rating: 4.6,
-    numReviews: 25,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629253/GEOCEL/Hammer.jpg',
-    imageAlt: 'Hammer',
-    category: 'Construction',
-    quantity: 15,
-    price: 800.0,
-    description: 'Heavy-duty hammer for all your construction needs.',
-    name: 'Hammer',
-    formattedPrice: 'kshs 800.00',
-    rating: 4.7,
-    numReviews: 22,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718628397/GEOCEL/Bamburi_Fundi.jpg',
-    imageAlt: 'Bamburi Fundi Cement',
-    category: 'Construction',
-    quantity: 10,
-    price: 760.0,
-    description:
-      'Bamburi Fundi Cement is a hydraulic cement designed for use in mortars for masonry construction. Plastering, rendering, stucco, brick laying, screeding and others.',
-    name: 'Bamburi Fundi Cement',
-    formattedPrice: 'kshs 760.00',
-    rating: 4,
-    numReviews: 10,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629096/GEOCEL/Steel_Nail_3%22.jpg',
-    imageAlt: 'Nails 3 inches',
-    category: 'Fencing',
-    quantity: 50,
-    price: 250.0,
-    description: 'High-quality 3-inch nails for various construction needs.',
-    name: 'Per Kg Nails 3 inches',
-    formattedPrice: 'kshs 250.00',
-    rating: 4.5,
-    numReviews: 30,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718627953/GEOCEL/Juakali_wheelbarrow.jpg',
-    imageAlt: 'Wheelbarrow',
-    category: 'Construction',
-    quantity: 5,
-    price: 2500.0,
-    description: 'Sturdy wheelbarrow for transporting materials around the construction site.',
-    name: 'Wheelbarrow',
-    formattedPrice: 'kshs 2500.00',
-    rating: 4.8,
-    numReviews: 15,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629200/GEOCEL/Shovel.jpg',
-    imageAlt: 'Shovel',
-    category: 'Construction',
-    quantity: 20,
-    price: 1200.0,
-    description: 'Durable shovel for digging and moving bulk materials.',
-    name: 'Shovel',
-    formattedPrice: 'kshs 1200.00',
-    rating: 4.6,
-    numReviews: 25,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629253/GEOCEL/Hammer.jpg',
-    imageAlt: 'Hammer',
-    category: 'Construction',
-    quantity: 15,
-    price: 800.0,
-    description: 'Heavy-duty hammer for all your construction needs.',
-    name: 'Hammer',
-    formattedPrice: 'kshs 800.00',
-    rating: 4.7,
-    numReviews: 22,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718628397/GEOCEL/Bamburi_Fundi.jpg',
-    imageAlt: 'Bamburi Fundi Cement',
-    category: 'Construction',
-    quantity: 10,
-    price: 760.0,
-    description:
-      'Bamburi Fundi Cement is a hydraulic cement designed for use in mortars for masonry construction. Plastering, rendering, stucco, brick laying, screeding and others.',
-    name: 'Bamburi Fundi Cement',
-    formattedPrice: 'kshs 760.00',
-    rating: 4,
-    numReviews: 10,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629096/GEOCEL/Steel_Nail_3%22.jpg',
-    imageAlt: 'Nails 3 inches',
-    category: 'Fencing',
-    quantity: 50,
-    price: 250.0,
-    description: 'High-quality 3-inch nails for various construction needs.',
-    name: 'Per Kg Nails 3 inches',
-    formattedPrice: 'kshs 250.00',
-    rating: 4.5,
-    numReviews: 30,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718627953/GEOCEL/Juakali_wheelbarrow.jpg',
-    imageAlt: 'Wheelbarrow',
-    category: 'Construction',
-    quantity: 5,
-    price: 2500.0,
-    description: 'Sturdy wheelbarrow for transporting materials around the construction site.',
-    name: 'Wheelbarrow',
-    formattedPrice: 'kshs 2500.00',
-    rating: 4.8,
-    numReviews: 15,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629200/GEOCEL/Shovel.jpg',
-    imageAlt: 'Shovel',
-    category: 'Construction',
-    quantity: 20,
-    price: 1200.0,
-    description: 'Durable shovel for digging and moving bulk materials.',
-    name: 'Shovel',
-    formattedPrice: 'kshs 1200.00',
-    rating: 4.6,
-    numReviews: 25,
-  },
-  {
-    imageUrl: 'https://res.cloudinary.com/drdradtyj/image/upload/v1718629253/GEOCEL/Hammer.jpg',
-    imageAlt: 'Hammer',
-    category: 'Construction',
-    quantity: 15,
-    price: 800.0,
-    description: 'Heavy-duty hammer for all your construction needs.',
-    name: 'Hammer',
-    formattedPrice: 'kshs 800.00',
-    rating: 4.7,
-    numReviews: 22,
-  },
-];
 
 export default function Products({ searchQuery }) {
   const [showModal, setShowModal] = useState(false);
@@ -223,7 +37,6 @@ export default function Products({ searchQuery }) {
 
   const totalPages = Math.ceil(searchedProducts.length / itemsPerPage);
   const paginatedProducts = searchedProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-  
 
   const openQuickView = (product) => {
     setSelectedProduct(product);
@@ -232,6 +45,19 @@ export default function Products({ searchQuery }) {
   const closeQuickView = () => {
     setSelectedProduct(null);
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products: ', error);
+      }
+    };
+    fetchProducts();
+    }, []);
 
   return (
     <div className="flex flex-col md:flex-row bg-gray-100 min-h-screen">
@@ -252,15 +78,17 @@ export default function Products({ searchQuery }) {
           <option value="Plumbing">Plumbing</option>
           <option value="Welding">Welding</option>
         </select>
-        <button
-          className="w-full px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 mt-4"
-          onClick={toggleCart}
-        >
-          Cart ({cartItems.length})
-        </button>
       </div>
       <div className="md:w-3/4 p-4 sm:px-10 lg:px-20">
-        <h1 className="text-2xl uppercase font-bold mt-10 text-center mb-10">Shop</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl uppercase font-bold mt-10 mb-10">Shop</h1>
+          <button
+            className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700"
+            onClick={toggleCart}
+          >
+            Cart ({cartItems.length})
+          </button>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {paginatedProducts.map((product, index) => (
             <div key={index} className="bg-white shadow-md rounded-lg p-4 sm:p-6 relative group">
