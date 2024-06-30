@@ -9,7 +9,7 @@ const Cart = ({ showModal, toggle }) => {
     alert("Proceeding to checkout...");
   };
 
-  // Function to calculate total price
+  // calculate total price
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
   };
