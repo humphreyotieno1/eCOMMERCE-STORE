@@ -10,7 +10,9 @@ export default function NavBar({ setSearchQuery }) {
   };
 
   const handleSearchChange = (e) => {
-    setQuery(e.target.value);
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    setSearchQuery(newQuery);
   };
 
   const handleSearchSubmit = (e) => {
@@ -76,4 +78,3 @@ export default function NavBar({ setSearchQuery }) {
     </div>
   );
 }
-

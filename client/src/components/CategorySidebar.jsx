@@ -1,25 +1,27 @@
-import React, { createContext, useState } from 'react';
+import React from 'react';
 
-export const CartContext = createContext();
-
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
-
-  const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
-  };
-
-  const removeFromCart = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
-
-  const clearCart = () => {
-    setCartItems([]);
-  };
+export default function CategorySidebar({ selectedCategory, onCategoryChange }) {
+  const categories = [
+    'All',
+    'Construction',
+    'Fencing',
+    'Plumbing',
+    'Flooring',
+    'Welding',
+    'Paint',
+    'Timber'
+  ];
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
-      {children}
-    </CartContext.Provider>
+    <div className="bg-gray-200 p-4 rounded">
+      <h3 className="text-lg font-bold mb-2">Categories</h3>
+      <ul>
+        {categories.map((category, index) => (
+          <li key={index} className={`cursor-pointer ${selectedCategory === category ? 'font-bold' : ''}`} onClick={() => onCategoryChange(category)}>
+            {category}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-};
+}

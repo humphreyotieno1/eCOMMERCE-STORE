@@ -3,28 +3,14 @@ import { CartContext } from '../components/CartContext.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Cart = ({ showModal, toggle }) => {
-  const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
 
   const handleCheckout = () => {
     alert("Proceeding to checkout...");
   };
 
-  // calculate total price
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
-  };
-
-  // Function to count unique items in the cart
-  const countItems = () => {
-    const itemCounts = {};
-    cartItems.forEach(item => {
-      if (itemCounts[item.id]) {
-        itemCounts[item.id].quantity += item.quantity;
-      } else {
-        itemCounts[item.id] = { ...item };
-      }
-    });
-    return Object.values(itemCounts);
   };
 
   return (
@@ -49,17 +35,26 @@ const Cart = ({ showModal, toggle }) => {
               <p className="text-gray-600">Your cart is empty</p>
             ) : (
               <div>
-                {countItems().map((item, index) => (
+                {cartItems.map((item, index) => (
                   <div key={index} className="flex items-center justify-between mb-4">
                     <img src={item.imageUrl} alt={item.name} className="w-12 h-12 sm:w-16 sm:h-16 rounded" />
                     <div className="flex-1 ml-2 sm:ml-4">
                       <h3 className="text-sm sm:text-lg font-bold">{item.name}</h3>
-                      <p className="text-gray-600 text-sm">{item.formattedPrice} x {item.quantity}</p>
+                      <p className="text-gray-600 text-sm">{item.formattedPrice}</p>
+                      <div className="flex items-center mt-2">
+                        <input
+                          type="number"
+                          min="1"
+                          value={item.quantity}
+                          onChange={(e) => updateQuantity(item.name, parseInt(e.target.value))}
+                          className="w-16 px-2 py-1 border rounded"
+                        />
+                      </div>
                     </div>
                     <div className="flex items-center">
                       <button
                         className="px-2 py-1 bg-red-500 text-white text-xs sm:text-sm rounded hover:bg-red-600"
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={() => removeFromCart(item.name)}
                       >
                         Remove
                       </button>
