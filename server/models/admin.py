@@ -18,6 +18,7 @@ class Admin(db.Model, SerializerMixin):
     products = db.relationship('Product', back_populates='admin')
     
     
+    #serialization
     
     def __repr__(self):
         return f"<Admin: {self.user_name}>"

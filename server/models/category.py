@@ -11,8 +11,9 @@ class Category(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
-    # Relationships
-    products = db.relationship('Product', back_populates='category', lazy='dynamic')
+
+    # Relationship with Product model
+    products = db.relationship('Product', back_populates='category')
 
     def __repr__(self):
         return f"Category(id={self.id}, name='{self.name}', description='{self.description}')"

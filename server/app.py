@@ -19,7 +19,7 @@ from routes.orders import Orders, OrderById
 app = Flask(__name__)
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///geocel.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False
 
@@ -48,7 +48,6 @@ api.add_resource(Categories, '/categories')
 api.add_resource(CategoryById, '/categories/<int:id>')
 api.add_resource(CartItems, '/cartitems')
 api.add_resource(CartItemById, '/cartitems/<int:id>')
-
 
 
 if __name__ == "__main__":
