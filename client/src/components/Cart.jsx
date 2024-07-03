@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../components/CartContext.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Cart = ({ showModal, toggle }) => {
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const handleCheckout = () => {
-    alert("Proceeding to checkout...");
+    navigate('/checkout');
   };
 
   const calculateTotal = () => {
