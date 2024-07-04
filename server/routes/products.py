@@ -87,4 +87,3 @@ class ProductById(Resource):
         
         return make_response({"message": "product deleted successfully"}, 200)   
     
-    

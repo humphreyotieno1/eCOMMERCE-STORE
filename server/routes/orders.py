@@ -48,5 +48,3 @@ class OrderById(Resource):
         db.session.commit()
         
         return make_response({"message": "order deleted successfully"}, 200)   
-    
-    

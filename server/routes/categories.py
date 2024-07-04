@@ -77,3 +77,4 @@ class CategoryById(Resource):
         
         
         return make_response({"message": "category deleted successfully"}, 200)   
+    

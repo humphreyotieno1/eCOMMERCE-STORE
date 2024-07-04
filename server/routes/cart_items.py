@@ -2,7 +2,7 @@ from flask import jsonify, make_response, request
 from flask_restful import Resource
 
 from dbconfig import db
-from models.cartItem import CartItem
+from models.cart_item import CartItem
 
 class CartItems(Resource):
     def get(self):

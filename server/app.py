@@ -1,37 +1,16 @@
-from flask import Flask
-from flask_bcrypt import Bcrypt
-from flask_migrate import Migrate
-from flask_restful import Api
-from flask_cors import CORS
-
-#local imports
-from dbconfig import db
+from dbconfig import api,app
 
 from routes.home import Home
 from routes.admins import Admins, AdminById
 from routes.users import Users,UserById
 from routes.categories import Categories, CategoryById
-from routes.cartItems import CartItems, CartItemById
+from routes.cart_items import CartItems, CartItemById
 from routes.services import Services, ServiceById
 from routes.products import Products, ProductById
 from routes.orders import Orders, OrderById
+from routes.sign_up import SignUp
+from routes.login import Login
 
-app = Flask(__name__)
-
-
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.json.compact = False
-
-
-migrate = Migrate(app, db)
-db.init_app(app)
-
-
-api = Api(app)
-bcrypt = Bcrypt(app)
-
-CORS(app)
 
 api.add_resource(Home, '/')
 api.add_resource(Products, '/products')
@@ -48,7 +27,10 @@ api.add_resource(Categories, '/categories')
 api.add_resource(CategoryById, '/categories/<int:id>')
 api.add_resource(CartItems, '/cartitems')
 api.add_resource(CartItemById, '/cartitems/<int:id>')
+api.add_resource(SignUp, '/signup')
+api.add_resource(Login, '/login')
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
