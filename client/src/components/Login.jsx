@@ -29,14 +29,18 @@ const Login = ({ onLogin }) => {
         if (data.access_token) {
           localStorage.setItem("access_token", data.access_token);
           setMessage("Login successful!");
+          // Clear the input fields
           setPassword("");
           setUsername("");
+          setRememberMe(false);
+          setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
           onLogin(data.access_token);
         } else throw new Error("Token not found in response");
       })
       .catch((error) => {
         console.error(error);
         setMessage("Login failed. Please try again.");
+        setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
       });
   };
 
@@ -46,7 +50,7 @@ const Login = ({ onLogin }) => {
         <div className="flex justify-center">
           <div className="w-full max-w-lg">
             <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-              <h1 className="text-2xl text-center text-gray-800 mb-4">Welcome Back</h1>
+              <h1 className="text-2xl text-center text-gray-800 mb-4">Welcome Back !</h1>
               {message && (
                 <p className={`text-center ${message.includes("successful") ? "text-blue-500" : "text-red-500"}`}>
                   {message}
@@ -54,7 +58,7 @@ const Login = ({ onLogin }) => {
               )}
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label htmlFor="text" className="block text-gray-800 text-sm font-bold mb-2">
+                  <label htmlFor="username" className="block text-gray-800 text-sm font-bold mb-2">
                     Your Username
                   </label>
                   <input

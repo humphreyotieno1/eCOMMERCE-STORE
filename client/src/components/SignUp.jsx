@@ -33,7 +33,7 @@ const Signup = () => {
     fetch("http://127.0.0.1:5000/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_name:username, password:password, email:email }),
+      body: JSON.stringify({ user_name: username, password: password, email: email }),
     })
       .then((resp) => {
         if (!resp.ok) {
@@ -48,8 +48,12 @@ const Signup = () => {
         setEmail("");
         setConfirmPassword("");
         setMessage("Signup successful!");
+        setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
       })
-      .catch((error) => setMessage(error.message));
+      .catch((error) => {
+        setMessage(error.message);
+        setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
+      });
   };
 
   return (

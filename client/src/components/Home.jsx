@@ -29,7 +29,7 @@ const HomePage = () => {
   }, [controls, titleControls]);
 
   return (
-    <div className="h-screen w-screen overflow-hidden m-0 p-0">
+    <div className="h-screen overflow-hidden m-0 p-0">
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={controls}
