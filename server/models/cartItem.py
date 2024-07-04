@@ -1,5 +1,5 @@
 from sqlalchemy.orm import relationship
-from .dbconfig import db
+from dbconfig import db
 from datetime import datetime
 from .service import Service
 from .order import Order
