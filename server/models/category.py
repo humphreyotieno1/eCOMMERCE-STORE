@@ -1,22 +1,19 @@
-from dbconfig import db
 from sqlalchemy_serializer import SerializerMixin
+from dbconfig import db
 
 
-class Order(db.Model, SerializerMixin):
-    __tablename__ = 'orders'
+class Category(db.Model, SerializerMixin):
+    __tablename__ = 'categories'
 
     id = db.Column(db.Integer, primary_key=True)
-    total_amount = db.Column(db.Numeric(10, 2), nullable=False)
-    status = db.Column(db.String(50), nullable=False, default='pending')
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    description = db.Column(db.String(500), nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
-    service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    # Relationships
-    user = db.relationship('User', back_populates='orders')
-    products = db.relationship('Product', back_populates='orders')
-    services = db.relationship('Service', back_populates='orders')
-    cart_items = db.relationship('CartItem', back_populates='orders')
+    # Relationship with Product model
+    products = db.relationship('Product', back_populates='category')
+
+    def __repr__(self):
+        return f"Category(id={self.id}, name='{self.name}', description='{self.description}')"

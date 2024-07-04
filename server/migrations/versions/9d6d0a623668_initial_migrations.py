@@ -1,8 +1,8 @@
 """Initial migrations
 
-Revision ID: d41094d03ea4
+Revision ID: 9d6d0a623668
 Revises: 
-Create Date: 2024-06-29 22:00:03.137893
+Create Date: 2024-07-05 00:07:14.685925
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd41094d03ea4'
+revision = '9d6d0a623668'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,44 +37,45 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    op.create_table('products',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=False),
-    sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('imageUrl', sa.String(length=255), nullable=False),
-    sa.Column('imageAlt', sa.String(length=100), nullable=False),
-    sa.Column('category', sa.String(length=100), nullable=False),
-    sa.Column('quantity', sa.Integer(), nullable=False),
-    sa.Column('price', sa.Float(), nullable=False),
-    sa.Column('formattedPrice', sa.String(length=50), nullable=False),
-    sa.Column('rating', sa.Float(), nullable=False),
-    sa.Column('numReviews', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_name', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
+    sa.Column('password_hash', sa.String(length=128), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('user_name')
     )
+    op.create_table('products',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('description', sa.String(length=500), nullable=True),
+    sa.Column('imageUrl', sa.String(), nullable=True),
+    sa.Column('imageAlt', sa.String(length=100), nullable=True),
+    sa.Column('price', sa.Float(), nullable=False),
+    sa.Column('is_in_stock', sa.Boolean(), nullable=False),
+    sa.Column('rating', sa.Float(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.Column('category_id', sa.Integer(), nullable=True),
+    sa.Column('admin_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['admin_id'], ['admins.id'], name=op.f('fk_products_admin_id_admins')),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], name=op.f('fk_products_category_id_categories')),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('services',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
-    sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=False),
+    sa.Column('price', sa.Float(), nullable=False),
     sa.Column('duration', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name=op.f('fk_services_user_id_users')),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('orders',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -113,8 +114,8 @@ def downgrade():
     op.drop_table('cart_items')
     op.drop_table('orders')
     op.drop_table('services')
-    op.drop_table('users')
     op.drop_table('products')
+    op.drop_table('users')
     op.drop_table('categories')
     op.drop_table('admins')
     # ### end Alembic commands ###
