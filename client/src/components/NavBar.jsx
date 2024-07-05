@@ -59,7 +59,7 @@ export default function NavBar({ setSearchQuery, loggedIn, onLogout }) {
           ) : (
             <Link to="/login">
               <Button colorScheme="blue" leftIcon={<IoMdContact />} className="flex items-center space-x-1 rounded hover:bg-gray-600">
-                <span>Login</span>
+                <span>Login / SignUp</span>
               </Button>
             </Link>
           )}
