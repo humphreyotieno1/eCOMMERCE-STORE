@@ -10,6 +10,8 @@ from routes.products import Products, ProductById
 from routes.orders import Orders, OrderById
 from routes.sign_up import SignUp
 from routes.login import Login
+from routes.mpesa import SimulateC2B, Callback
+
 
 
 api.add_resource(Home, '/')
@@ -29,8 +31,13 @@ api.add_resource(CartItems, '/cartitems')
 api.add_resource(CartItemById, '/cartitems/<int:id>')
 api.add_resource(SignUp, '/signup')
 api.add_resource(Login, '/login')
+api.add_resource(SimulateC2B, '/simulatec2b')
+api.add_resource(Callback, '/callback')
+
+
+
+
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-    

@@ -16,6 +16,8 @@ faker = "*"
 pandas = "*"
 openpyxl = "*"
 flask-jwt-extended = "*"
+requests = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

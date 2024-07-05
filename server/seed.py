@@ -36,21 +36,25 @@ with app.app_context():
             print("Columns:", df.columns.tolist())
             
             # Loop through each row in the dataframe
-            for _, row in df.iterrows():
-                product_data = {    
-                    "name": row['name'],
-                    "description": row['description'],
-                    "imageUrl": row['imageUrl'],
-                    "imageAlt": row['imageAlt'],
-                    "price": row['price'],
-                    "is_in_stock": row['is_in_stock'],
-                    "rating": row['rating'],
-                    "category_id": row['category_id'],
-                    "admin_id": row['admin_id'],
-                }
-                print("seeding product...:", product_data)
-                product = Product(**product_data)
-                db.session.add(product)
+            for index, row in df.iterrows():
+                try:
+                    product_data = {    
+                        "name": row['name'],
+                        "description": row['description'],
+                        "imageUrl": row['imageUrl'],
+                        "imageAlt": row['imageAlt'],
+                        "price": row['price'],
+                        "is_in_stock": row['is_in_stock'],
+                        "rating": row['rating'],
+                        "category_id": row['category_id'],
+                        "admin_id": row['admin_id'],
+                    }
+                    print("Seeding product:", product_data)
+                    product = Product(**product_data)
+                    db.session.add(product)
+                except Exception as e:
+                    print(f"Error seeding product in sheet '{sheet_name}', row {index + 1}: {e}")
+                    raise  # Reraise the exception to halt execution and see the full traceback
 
     print("seeding services...")
     def seed_services():
@@ -183,7 +187,7 @@ with app.app_context():
             db.session.add(admin)
 
     try:
-        seed_products_from_excel('./GeocelProductsDBupdated.xlsx')
+        seed_products_from_excel('./GeocelProductsDBFinal.xlsx')
         seed_categories()
         seed_cart_items()
         seed_orders()
@@ -197,4 +201,3 @@ with app.app_context():
     except Exception as e:
         db.session.rollback()
         print(f"Error seeding database: {e}")
-        
