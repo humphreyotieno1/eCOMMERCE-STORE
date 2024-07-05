@@ -15,10 +15,27 @@ const About = () => {
     { title: 'Innovation', description: 'We continuously seek new ways to improve our products and services.', image: '/inn.jpg' },
   ];
 
-  const leadershipTeam = [
-    { name: 'George Ouma', role: 'Founder & CEO', image: '/path/to/john_doe.jpg', alt: 'George Ouma' },
-    { name: 'Celestine Wagumba', role: 'Founder', image: '/path/to/jane_doe.jpg', alt: 'Celestine Wagumba' },
-    { name: 'Richard Roe', role: 'Manager', image: '/path/to/richard_roe.jpg', alt: 'Richard Roe' },
+  const people = [
+    {
+      name: 'George Ouma',
+      role: 'Co-Founder / CEO',
+      imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+    {
+      name: 'Celestine Wagumba',
+      role: 'Co-Founder',
+      imageUrl: 'https://images.unsplash.com/photo-1554151226-0e3f5e6ce3e3?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+    {
+      name: 'Richard Doe',
+      role: 'Manager',
+      imageUrl: 'https://images.unsplash.com/photo-1554151226-0e3f5e6ce3e3?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+  ];
+
+  const milestones = [
+    { year: '1990', achievement: 'Geocel Enterprises was founded.' },
+    { year: '2000', achievement: 'Expanded to a second location.' },
   ];
 
   return (
@@ -77,7 +94,7 @@ const About = () => {
             Leadership Team
           </Heading>
           <Flex wrap="wrap" justify="space-between">
-            {leadershipTeam.map((leader, index) => (
+            {people.map((person, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
@@ -89,12 +106,11 @@ const About = () => {
                 <Box maxW="full" bg="white" rounded="xl" shadow="md" overflow="hidden" _hover={{ boxShadow: 'xl' }}>
                   <Flex direction={{ base: 'column', md: 'row' }}>
                     <Box flexShrink="0">
-                      <Image boxSize="200px" objectFit="cover" src={leader.image} alt={leader.alt} />
+                      <Image boxSize="200px" objectFit="cover" src={person.imageUrl} alt={person.name} />
                     </Box>
                     <Box p={8} textAlign="center">
-                      <Text className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{leader.role}</Text>
-                      <Text className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{leader.name}</Text>
-                      <Text className="mt-2 text-slate-500">{leader.role}</Text>
+                      <Text className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{person.role}</Text>
+                      <Text className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{person.name}</Text>
                     </Box>
                   </Flex>
                 </Box>
@@ -110,12 +126,7 @@ const About = () => {
             Achievements and Milestones
           </Heading>
           <Flex wrap="wrap" justify="space-between">
-            {[
-              { year: '1990', achievement: 'Geocel Enterprises was founded.' },
-              { year: '2000', achievement: 'Expanded to a second location.' },
-              { year: '2010', achievement: 'Reached $10 million in annual revenue.' },
-              { year: '2020', achievement: 'Awarded "Best Hardware Supplier" in the region.' },
-            ].map((milestone, index) => (
+            {milestones.map((milestone, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
@@ -127,7 +138,7 @@ const About = () => {
                 <Box maxW="full" bg="white" rounded="xl" shadow="md" overflow="hidden" _hover={{ boxShadow: 'xl' }}>
                   <Flex direction={{ base: 'column', md: 'row' }}>
                     <Box flexShrink="0">
-                      <Image boxSize="200px" objectFit="cover" src="/img/building.jpg" alt="Modern building architecture" />
+                      <Image boxSize="200px" objectFit="cover" src="/img/building.jpg" alt="Milestone" />
                     </Box>
                     <Box p={8}>
                       <Text className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{milestone.year}</Text>
