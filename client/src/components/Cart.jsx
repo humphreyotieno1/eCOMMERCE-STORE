@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../components/CartContext.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Cart = ({ showModal, toggle }) => {
+const Cart = ({ showModal, toggle }) => { // Receive props showModal and toggle from Services component
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -19,30 +19,38 @@ const Cart = ({ showModal, toggle }) => {
     <AnimatePresence>
       {showModal && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={toggle}
         >
           <motion.div
-            className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg max-w-xs sm:max-w-md md:max-w-lg w-full mx-4"
+            className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg max-w-xs sm:max-w-md md:max-w-lg w-full mx-4 relative overflow-y-auto"
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
+            style={{ maxHeight: '90vh' }}
           >
+            <button
+              className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
+              onClick={toggle}
+            >
+              &times;
+            </button>
             <h2 className="text-xl sm:text-2xl font-bold mb-4">Cart</h2>
             {cartItems.length === 0 ? (
               <p className="text-gray-600">Your cart is empty</p>
             ) : (
-              <div>
+              <div className="max-h-80 sm:max-h-96 overflow-y-auto">
                 {cartItems.map((item, index) => (
                   <div key={index} className="flex items-center justify-between mb-4">
                     <img src={item.imageUrl} alt={item.name} className="w-12 h-12 sm:w-16 sm:h-16 rounded" />
                     <div className="flex-1 ml-2 sm:ml-4">
                       <h3 className="text-sm sm:text-lg font-bold">{item.name}</h3>
-                      <p className="text-gray-600 text-sm">{item.formattedPrice}</p>
+                      <p className="text-gray-600 text-sm">Price: {item.price} kshs</p>
+                      <p className="text-gray-600 text-sm">Total: {(item.price * item.quantity).toFixed(2)} kshs</p>
                       <div className="flex items-center mt-2">
                         <input
                           type="number"

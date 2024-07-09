@@ -14,7 +14,7 @@ export default function NavBar({ setSearchQuery, loggedIn, onLogout }) {
   const handleSearchChange = (e) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    setSearchQuery(newQuery); // Pass the search query immediately
+    setSearchQuery(newQuery);
   };
 
   const handleSearchSubmit = (e) => {
@@ -26,7 +26,7 @@ export default function NavBar({ setSearchQuery, loggedIn, onLogout }) {
     <div className="bg-gray-800 text-white px-4">
       <div className="flex items-center justify-between h-16 max-w-7xl mx-auto">
         <Link to="/" className="flex items-center text-xl font-bold">
-          <img src="/vite.svg" alt="Geocel Logo" className="h-8 w-auto mr-2" />
+          <img src="/geocellogo.png" alt="Geocel Logo" className="h-8 w-auto mr-2" />
           GEOCEL ENTERPRISES
         </Link>
 

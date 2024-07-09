@@ -1,27 +1,21 @@
 import React from 'react';
 
-export default function CategorySidebar({ selectedCategory, onCategoryChange }) {
-  const categories = [
-    'All',
-    'Construction',
-    'Fencing',
-    'Plumbing',
-    'Flooring',
-    'Welding',
-    'Paint',
-    'Timber'
-  ];
-
+const CategorySelector = ({ selectedCategory, handleCategoryChange, categories }) => {
   return (
-    <div className="bg-gray-200 p-4 rounded">
-      <h3 className="text-lg font-bold mb-2">Categories</h3>
-      <ul>
-        {categories.map((category, index) => (
-          <li key={index} className={`cursor-pointer ${selectedCategory === category ? 'font-bold' : ''}`} onClick={() => onCategoryChange(category)}>
-            {category}
-          </li>
+    <div className="md:w-1/4 p-4 bg-white shadow-md">
+      <h2 className="text-xl font-bold mb-4">Filter by Category</h2>
+      <select
+        className="w-full px-4 py-2 border rounded mb-4"
+        value={selectedCategory}
+        onChange={(e) => handleCategoryChange(e.target.value)}
+      >
+        <option value="All">All</option>
+        {categories.map((category) => (
+          <option key={category.id} value={category.id}>{category.name}</option>
         ))}
-      </ul>
+      </select>
     </div>
   );
-}
+};
+
+export default CategorySelector;

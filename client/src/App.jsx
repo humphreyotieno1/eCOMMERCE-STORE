@@ -7,10 +7,11 @@ import Services from './components/Services';
 import About from './components/About';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
-import CheckOut from './components/CheckOut';  
-import Login from './components/Login';  
-import Signup from './components/SignUp';  
+import CheckOut from './components/CheckOut';
+import Login from './components/Login';
+import Signup from './components/SignUp';
 import { CartProvider } from './components/CartContext';
+import Footer from './components/Footer';
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,25 +38,28 @@ export default function App() {
     <CartProvider>
       <Router>
         <NavBar setSearchQuery={setSearchQuery} loggedIn={loggedIn} onLogout={handleLogout} />
-        <Routes>
-          {/* Routes accessible to all users */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<Products searchQuery={searchQuery} />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<Cart />} />
+        <div className="min-h-screen">
+          <Routes>
+            {/* Routes accessible to all users */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products" element={<Products searchQuery={searchQuery} />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/cart" element={<Cart />} />
 
-          {/* Route for non-logged in users */}
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/signup" element={<Signup />} />
+            {/* Route for non-logged in users */}
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/signup" element={<Signup />} />
 
-          {/* Protected route for checkout */}
-          <Route 
-            path="/checkout" 
-            element={loggedIn ? <CheckOut /> : <Navigate to="/login" />} 
-          />
-        </Routes>
+            {/* Protected route for checkout */}
+            <Route 
+              path="/checkout" 
+              element={loggedIn ? <CheckOut /> : <Navigate to="/login" />} 
+            />
+          </Routes>
+          <Footer /> {/* Include the Footer component outside of Routes */}
+        </div>
       </Router>
     </CartProvider>
   );
