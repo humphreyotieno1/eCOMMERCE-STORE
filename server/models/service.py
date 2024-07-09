@@ -9,7 +9,7 @@ class Service(db.Model, SerializerMixin):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
     price = db.Column(db.Float, nullable=False)
-    duration = db.Column(db.Integer, nullable=False)  # Duration in minutes
+    availability = db.Column(db.Boolean, nullable=True)  
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     

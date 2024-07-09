@@ -18,7 +18,8 @@ class Services(Resource):
             new_service= Service(
                 name = service_data['name'],
                 description = service_data['description'],
-                price = service_data['price']
+                price = service_data['price'],
+                availability = service_data['availability']
             )
             db.session.add(new_service)
             db.session.commit()

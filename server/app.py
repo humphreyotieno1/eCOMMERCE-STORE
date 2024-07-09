@@ -35,9 +35,5 @@ api.add_resource(SimulateC2B, '/simulatec2b')
 api.add_resource(Callback, '/callback')
 
 
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)

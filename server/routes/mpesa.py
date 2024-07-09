@@ -16,6 +16,7 @@ consumer_secret = os.getenv('CONSUMER_SECRET')
 shortcode = os.getenv('SHORTCODE')
 passkey = os.getenv('PASSKEY')
 
+
 encoded_credentials = base64.b64encode(f"{consumer_key}:{consumer_secret}".encode()).decode()
 
 
@@ -35,33 +36,6 @@ def get_access_token():
         raise Exception("Failed to get access token: " + response.text)
     
 
-# class SimulateC2B(Resource):
-#     def post(self):
-#         data = request.json
-#         phone_number = data['phoneNumber']
-#         amount = data['amount']
-
-#         if not isinstance(amount, int) or amount <= 0:
-#             return jsonify({
-#                 "errorCode": "400.003.02",
-#                 "errorMessage": "Invalid amount. Amount should be a positive integer."
-#             }), 400
-
-#         access_token = get_access_token()
-#         api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate"
-#         headers = {"Authorization": f"Bearer {access_token}"}
-
-#         request_payload = {
-#             # "ShortCode": shortcode,
-#             "CommandID": "CustomerPayBillOnline",
-#             "Amount": amount,
-#             "Msisdn": phone_number,
-#             "BillRefNumber": "0788test"
-#         }
-
-#         response = requests.post(api_url, json=request_payload, headers=headers)
-#         print(response.json())  # Log the response from Safaricom API
-#         return jsonify(response.json())
 
 class SimulateC2B(Resource):
     def post(self):
@@ -76,8 +50,13 @@ class SimulateC2B(Resource):
 
             timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
             password = base64.b64encode((shortcode + passkey + timestamp).encode('ascii')).decode('ascii')
-            
-            
+
+            # Logging for debugging
+            print(f"Shortcode: {shortcode}")
+            print(f"Passkey: {passkey}")
+            print(f"Timestamp: {timestamp}")
+            print(f"Generated Password: {password}")
+
 
 
             request_payload = {
@@ -89,7 +68,7 @@ class SimulateC2B(Resource):
                 "PartyA": phone_number,
                 "PartyB": shortcode,
                 "PhoneNumber": phone_number,
-                "CallBackURL": "http://localhost:5173/callback",  # Replace with your callback URL
+                "CallBackURL": "/callback",  # Replace with your callback URL
                 "AccountReference": "Test123",
                 "TransactionDesc": "Payment for goods"
             }

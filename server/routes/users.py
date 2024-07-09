@@ -42,4 +42,3 @@ class UserById(Resource):
         db.session.commit()
 
         return make_response({"message": "User deleted successfully"}, 200)
-    
